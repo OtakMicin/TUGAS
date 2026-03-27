@@ -11,30 +11,41 @@ Tujuan Aplikasi :
 - Edukasi kesehatan masyarakat
 
 ## FITUR & TIMELINE 
-**User & Account**
+**USER & ACCOUNT**
+
 1. Register & Login user
 2. Edit profil pengguna
 3. Riwayat aktivitas kesehatan
 
-**Kesehatan**
+
+**KESEHATAN**
+
 4. Self-check gejala (AI sederhana berbasis input)
 5. Rekomendasi tindakan awal
 6. Tracking kesehatan harian (makan, tidur, olahraga)
 
-**Konsultasi**
+
+**KONSULTASI**
+
 7. Booking dokter
 8. Chat dengan dokter
 
-**Obat & Informasi**
-9.Database obat
+
+**OBAT & INFORMASI**
+
+9. Database obat
 10. Informasi penyakit umum
 11. Reminder minum obat
 
-**Lokasi & Akses**
+
+**LOKASI & AKSES**
+
 12. Pencarian rumah sakit terdekat
 13. Maps lokasi fasilitas kesehatan
 
-**Sistem**
+
+**SISTEM**
+
 14. Notifikasi (jadwal, obat, konsultasi)
 15. Rating & review dokter
 16. Admin dashboard
