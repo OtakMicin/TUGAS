@@ -52,3 +52,7 @@ Tujuan Aplikasi :
 22. Article kesehatan (Beberapa article mengenai kesehatan yang akan muncul di home page dan random)
 23. Masukan user (local storage) (Lanjutan dari rating dan review dokter untuk tetapi ini bisa untuk website dan segalanya)
 
+Minggu 4 : User & Account
+Minggu 5 : Kesehatan, Obat & Informasi
+Minggu 6 : Lokasi & Akses
+Minggu 7 : Sistem
