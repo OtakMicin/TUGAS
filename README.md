@@ -37,7 +37,7 @@ Tujuan Aplikasi :
 
 **LOKASI & AKSES**
 
-14. Pencarian rumah sakit terdekat (Menampilkan beberapa informasi di kota tertentu yang dipilih oleh user dan yang dimiliki oleh partner bisnis kita) - Search Maps Page
+14. Pencarian rumah sakit terdekat (Menampilkan beberapa informasi di kota tertentu yang dipilih oleh user dan yang dimiliki oleh partner bisnis kita) - Maps Page
 15. Maps lokasi fasilitas kesehatan (Menggunakan API google maps untuk search fasilitas kesehatan) - Maps Page
 
 
