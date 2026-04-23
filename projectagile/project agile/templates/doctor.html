@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4 fw-bold fade-in-up" data-id="Pilih Dokter Spesialis" data-en="Choose a Specialist Doctor">Pilih Dokter Spesialis</h2>
+<div class="row g-4 fade-in-up">
+    {% for d in doctors %}
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-4 h-100 p-3">
+            <div class="d-flex align-items-center mb-3">
+                <img src="https://via.placeholder.com/80" class="rounded-circle shadow-sm me-3" style="border: 2px solid #007bff;">
+                <div>
+                    <h5 class="fw-bold mb-0">{{ d.nama }}</h5>
+                    <p class="text-primary small mb-0">{{ d.spesialis }}</p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3 px-2">
+                <span class="fw-bold text-dark" data-id="Biaya: Rp {{ '{:,}'.format(d.biaya) }}"
+      data-en="Cost: Rp {{ '{:,}'.format(d.biaya) }}">Biaya: Rp {{ "{:,}".format(d.biaya) }}</span>
+                {% if d.tersedia %}
+                    <span class="badge bg-success rounded-pill" data-id="Tersedia" data-en="Avalaible">Tersedia</span>
+                {% else %}
+                    <span class="badge bg-danger rounded-pill" data-id="Penuh" data-en="Full">Penuh</span>
+                {% endif %}
+            </div>
+
+            {% if d.tersedia %}
+                <div class="bg-light p-3 rounded-3">
+                    <form action="/booking/{{ d.id }}" method="POST" id="form-{{ d.id }}">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <label class="small fw-bold text-muted" data-id="Tanggal" data-en="Date">Tanggal</label>
+                                <input type="date" name="tanggal" class="form-control form-control-sm border-primary" required style="cursor: pointer;">
+                            </div>
+                            <div class="col-6">
+                                <label class="small fw-bold text-muted" data-id="Jam" data-en="Time">Jam</label>
+                                <input type="time" name="waktu" class="form-control form-control-sm border-primary" required style="cursor: pointer;">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary w-100 mt-3 rounded-pill shadow-sm fw-bold" on  click="konfirmasi('{{ d.id }}')" data-id="Konfirmasi Janji Temu" data-en="Appointment Confirmation">
+                            Konfirmasi Janji Temu
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <button class="btn btn-secondary w-100 rounded-pill mt-auto" disabled data-id="Jadwal Penuh" data-en="Full Schedule">Jadwal Penuh</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+function konfirmasi(id) {
+    const lang = localStorage.getItem("lang") || "id";
+
+    const text = {
+        id: {
+            title: "Buat Janji Temu?",
+            desc: "Pastikan tanggal dan jam sudah benar.",
+            ok: "Ya, Kirim!",
+            cancel: "Batal"
+        },
+        en: {
+            title: "Make an Appointment?",
+            desc: "Make sure the date and time are correct.",
+            ok: "Yes, Submit!",
+            cancel: "Cancel"
+        }
+    };
+
+    const t = text[lang] || text.id; // fallback aman
+
+    Swal.fire({
+        title: t.title,
+        text: t.desc,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#007bff',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: t.ok,
+        cancelButtonText: t.cancel
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('form-' + id).submit();
+        }
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row fade-in-up">
+        <div class="col-md-12 mb-4">
+            <h2 class="fw-bold text-white"
+                data-id="📍 Fasilitas Kesehatan Terdekat"
+                data-en="📍 Nearby Healthcare Facilities">
+                📍 Fasilitas Kesehatan Terdekat
+            </h2>
+            <p class="text-secondary"
+                data-id="Temukan rumah sakit mitra kami untuk penanganan medis lebih lanjut."
+                data-en="Find our partner hospitals for further medical treatment.">
+                Temukan rumah sakit mitra kami untuk penanganan medis lebih lanjut.
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-5 fade-in-up">
+            <div class="list-group shadow-sm border-0">
+                {% for rs in hospitals %}
+                <div class="list-group-item list-group-item-action border-0 mb-3 rounded-4 p-4 shadow-sm" 
+                     style="background-color: #1e2125; color: white; transition: 0.3s;"
+                     onmouseover="this.style.backgroundColor='#2b2f35'" 
+                     onmouseout="this.style.backgroundColor='#1e2125'">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="fw-bold text-primary mb-1">{{ rs.nama }}</h5>
+                            <p class="small text-secondary mb-2"><i class="bi bi-geo-alt-fill text-danger"></i> {{ rs.alamat }}, {{ rs.kota }}</p>
+                            <span class="badge bg-success-subtle text-success rounded-pill px-3"
+                                data-id="Buka 24 Jam"
+                                data-en="Open 24 Hours">
+                                Buka 24 Jam
+                            </span>
+                        </div>
+                        <a href="https://www.google.com/maps/search/{{ rs.nama }} {{ rs.kota }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle">
+                            <i class="bi bi-arrow-up-right"></i>
+                        </a>
+                    </div>
+                    <div class="mt-3">
+                        <small class="text-muted d-block mb-2"
+                            data-id="Layanan Unggulan:"
+                            data-en="Featured Services:">
+                            Layanan Unggulan:
+                        </small>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge"
+                                data-id="ICU"
+                                data-en="ER">
+                                IGD
+                            </span>
+                            <span class="badge bg-dark border border-secondary text-secondary font-monospace" style="font-size: 0.7rem;"
+                                data-id="Radiologi"
+                                data-en="Radiology">
+                                Radiologi
+                            </span>
+                            <span class="badge bg-dark border border-secondary text-secondary font-monospace" style="font-size: 0.7rem;"
+                                data-id="Laboratorium"
+                                data-en="Laboratory">
+                                Laboratorium
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-lg-7 fade-in-up">
+            <div class="card border-0 rounded-4 shadow-sm overflow-hidden" style="height: 600px;">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d127441.22971234567!2d98.6722!3d3.5952!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1srumah%20sakit%20medan!5e0!3m2!1sid!2sid!4v123456789" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
