@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg rounded-4 p-4">
+                
+                <div class="mb-4">
+                    <a href="/" class="btn btn-outline-primary rounded-pill px-4">
+                        ← Kembali
+                    </a>
+                </div>
+
+                <!-- Judul -->
+                <h2 class="fw-bold mb-3 text-primary">
+                    {{ article.title }}
+                </h2>
+
+                <!-- Isi Artikel -->
+                <p class="text-dark" style="line-height: 1.8; font-size: 1.05rem;">
+                    {{ article.content | safe }}
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

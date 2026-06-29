@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-body p-5">
+
+                    <h2 class="text-center fw-bold mb-4">
+                        👤 Edit Profil
+                    </h2>
+
+                    <form method="POST"
+                          action="/edit-profile"
+                          enctype="multipart/form-data">
+
+                        <div class="text-center mb-4">
+
+                            {% if user.foto_profil == 'default.jpg' %}
+
+                            <img id="preview"
+                                 src="https://via.placeholder.com/150"
+                                 class="rounded-circle shadow"
+                                 width="150"
+                                 height="150"
+                                 style="object-fit:cover;">
+
+                            {% else %}
+
+                            <img id="preview"
+                                 src="{{ url_for('static', filename='uploads/' + user.foto_profil) }}"
+                                 class="rounded-circle shadow"
+                                 width="150"
+                                 height="150"
+                                 style="object-fit:cover;">
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Foto Profil
+
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                name="foto"
+                                accept=".jpg,.jpeg,.png"
+                                onchange="previewImage(event)">
+
+                            <small class="text-muted">
+
+                                JPG / PNG • Maksimal 2 MB
+
+                            </small>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                Nama Lengkap
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="nama"
+                                value="{{ user.nama }}"
+                                required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+
+                                Email
+
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                value="{{ user.email }}"
+                                required>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-6">
+
+                                <a href="/profile"
+                                   class="btn btn-secondary w-100 rounded-pill">
+
+                                    <i class="bi bi-arrow-left"></i>
+                                    Batal
+
+                                </a>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <button
+                                    class="btn btn-primary w-100 rounded-pill">
+
+                                    <i class="bi bi-check-circle"></i>
+                                    Simpan
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function previewImage(event){
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+        document.getElementById("preview").src = reader.result;
+
+    }
+
+    reader.readAsDataURL(event.target.files[0]);
+
+}
+</script>
+
+{% endblock %}

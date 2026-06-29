@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📅 Kalender & Reminder Kesehatan</h2>
+
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReminderModal">
+            + Tambah Reminder
+        </button>
+    </div>
+
+    <div class="row">
+
+        <!-- Reminder Hari Ini -->
+        <div class="col-lg-4 mb-4">
+
+            <div class="card shadow h-100">
+
+                <div class="card-header bg-primary text-white">
+                    Hari Ini
+                </div>
+
+                <div class="card-body">
+
+                    {% if reminders %}
+
+                    {% for item in reminders %}
+
+                    <div class="border rounded p-3 mb-3">
+
+                        <h6>
+
+                            {% if item.status %}
+
+                            <span class="text-decoration-line-through text-muted">
+
+                                {{ item.title }}
+
+                            </span>
+
+                            {% else %}
+
+                            {{ item.title }}
+
+                            {% endif %}
+
+                        </h6>
+
+                        <small class="text-muted">
+
+                            {{ item.reminder_date }}
+
+                            -
+
+                            {{ item.reminder_time.strftime("%H:%M") }}
+
+                        </small>
+
+                        <br><br>
+
+                        {% if item.status %}
+
+                        <span class="badge bg-success">
+
+                            ✅ Selesai
+
+                        </span>
+
+                        <a href="/undo-reminder/{{ item.id }}" class="btn btn-outline-secondary btn-sm ms-2">
+
+                            Batal
+
+                        </a>
+
+                        {% else %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            ⏰ Belum
+
+                        </span>
+
+                        <a href="/complete-reminder/{{ item.id }}" class="btn btn-success btn-sm ms-2">
+
+                            ✔ Tandai
+
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% else %}
+
+                    <p class="text-muted">
+
+                        Belum ada reminder.
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Kalender -->
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <input type="date" class="form-control mb-4">
+
+                    <table class="table table-hover">
+
+                        <thead class="table-primary">
+
+                            <tr>
+
+                                <th>Kegiatan</th>
+                                <th>Tanggal</th>
+                                <th>Jam</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for item in reminders %}
+
+                            <tr>
+
+                                <td>
+                                    {% if item.status %}
+                                    <span class="text-decoration-line-through text-muted">
+                                        {{ item.title }}
+                                    </span>
+                                    {% else %}
+                                    {{ item.title }}
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ item.reminder_date }}</td>
+
+                                <td>{{ item.reminder_time.strftime("%H:%M") }}</td>
+
+                                <td>
+
+                                    {% if item.status %}
+
+                                    <span class="badge bg-success">
+                                        ✅ Selesai
+                                    </span>
+
+                                    {% else %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        ⏰ Belum
+                                    </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+
+                                    {% if item.status %}
+
+                                    <a href="/undo-reminder/{{ item.id }}" class="btn btn-secondary btn-sm">
+
+                                        ↩ Batal
+
+                                    </a>
+
+                                    {% else %}
+
+                                    <a href="/complete-reminder/{{ item.id }}" class="btn btn-success btn-sm">
+
+                                        ✔ Selesai
+
+                                    </a>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal Tambah Reminder -->
+
+<div class="modal fade" id="addReminderModal">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <form action="/add-reminder" method="POST">
+
+                <div class="modal-header">
+
+                    <h5>Tambah Reminder</h5>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <input class="form-control mb-3" name="title" placeholder="Nama kegiatan" required>
+
+                    <input type="date" class="form-control mb-3" name="date" required>
+
+                    <input type="time" class="form-control" name="time" required>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+
+                        Batal
+
+                    </button>
+
+                    <button class="btn btn-primary">
+
+                        Simpan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

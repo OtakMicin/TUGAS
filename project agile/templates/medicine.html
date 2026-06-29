@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Database Obat & Apotek Online</h2>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Cari nama obat atau gejala...">
+    </div>
+</div>
+
+<<div class="row g-4">
+
+{% for med in medicines %}
+
+<div class="col-md-3 col-sm-6">
+
+    <div class="card h-100 shadow-sm">
+
+        <img src="https://via.placeholder.com/300?text=Obat"
+             class="card-img-top"
+             alt="{{ med.nama }}">
+
+        <div class="card-body d-flex flex-column">
+
+            <h5 class="card-title">
+                {{ med.nama }}
+            </h5>
+
+            <span class="badge bg-primary mb-2">
+                {{ med.kategori }}
+            </span>
+
+            <p class="card-text text-muted small">
+                {{ med.kegunaan }}
+            </p>
+
+            <div class="mt-auto">
+
+                <h6 class="text-primary fw-bold">
+                    Rp {{ "{:,}".format(med.harga) }}
+                </h6>
+
+                {% if med.resep == "Ya" %}
+
+                <button
+                    class="btn btn-outline-danger w-100 mt-2"
+                    disabled>
+                    Resep Diperlukan
+                </button>
+
+                {% else %}
+
+                <form action="/cart/add/{{ med.id }}" method="POST">
+
+                    <button class="btn btn-success w-100 mt-2">
+
+                        🛒 Tambah ke Keranjang
+
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+{% endblock %}
